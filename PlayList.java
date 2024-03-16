@@ -106,22 +106,32 @@ class PlayList {
      *  If the list is empty, or the given index is negative or too big for this list, 
      *  does nothing and returns -1. */
     public void remove(int i) {
-        if(this.size == 0 || i > this.size - 1 || i<0 ) return;
-        else{
-            for(int j = i; j<this.size -1; j++ ){
-                this.tracks[j] = this.tracks[j+1];
-            }
-            this.size--;
+        if (size == 0 || i < 0 || i >= size) {
+            return;
         }
+        for (int j = i; j < size - 1; j++) {
+            tracks[j] = tracks[j + 1];
+        }
+        tracks[size - 1] = null;
+        size--;
     }
 
     /** Removes the first track that has the given title from this list.
      *  If such a track is not found, or the list is empty, or the given index
      *  is negative or too big for this list, does nothing. */
     public void remove(String title) {
-        if(this.indexOf(title) == -1 || size == 0) return;
-        else{
-            remove(this.indexOf(title));
+        if (size == 0) {
+            return;
+        }
+        for (int j = 0; j < size; j++) {
+            if (tracks[j].getTitle().equals(title)) {
+                for (int i = 0; i < size; i++) {
+                    tracks[i] = tracks[i + 1];
+                }
+                tracks[size - 1] = null;
+                size--;
+                return;
+            }
         }
     }
 
